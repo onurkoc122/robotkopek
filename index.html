@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Robot Köpek Projesi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Temel stil */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ffffff;
+            color: #222222;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        header {
+            background-color: #4A148C; /* Koyu mor */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        #toggle-theme {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            background-color: #ffffffcc;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        #toggle-theme:hover {
+            background-color: #e0e0e0cc;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin-top: 15px;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 30px;
+            background-color: #f9f9f9;
+            margin: 20px auto;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .step {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-left: 6px solid #6A1B9A;
+            max-width: 800px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #4A148C;
+            font-size: 18px;
+        }
+        .step p {
+            font-size: 16px;
+            color: #333;
+        }
+        .step img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #4A148C;
+            color: white;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        /* --- KARANLIK MOD --- */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        body.dark-mode header {
+            background-color: #2E0854;
+            color: #ffffff;
+        }
+        body.dark-mode #toggle-theme {
+            background-color: #333333cc;
+            color: #eee;
+        }
+        body.dark-mode #toggle-theme:hover {
+            background-color: #444444cc;
+        }
+        body.dark-mode nav ul li a {
+            color: #CE93D8;
+        }
+        body.dark-mode section {
+            background-color: #1e1e1e;
+            color: #ddd;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode .step {
+            background-color: #2c2c2c;
+            border-left-color: #7E57C2;
+        }
+        body.dark-mode .step h3 {
+            color: #BB86FC;
+        }
+        body.dark-mode .step p {
+            color: #ddd;
+        }
+        body.dark-mode .step img {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+        body.dark-mode footer {
+            background-color: #2E0854;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Robot Köpek Projesi</h1>
+    <button id="toggle-theme" aria-label="Tema değiştir">Karanlık/Açık Mod</button>
+    <nav>
+        <ul>
+            <li><a href="#giris">Giriş</a></li>
+            <li><a href="#ekip">Projeyi Yapanlar</a></li>
+            <li><a href="#asamalar">Aşamalar</a></li>
+            <li><a href="#parcalar">Parçalar</a></li>
+            <li><a href="#3dprint">3D Baskı Linki</a></li>
+            <li><a href="#projenin_amaci">Projenin Amacı</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="giris">
+    <h2>Proje Girişi</h2>
+    <p>Bu proje, gerçek köpek hareketlerini taklit edebilen dört ayaklı bir robot prototipinin geliştirilmesini amaçlamaktadır. Arduino Mega 2560 mikrodenetleyicisi ve PCA9685 servo sürücü kartı ile kontrol edilen 12 adet MG996R servo motor sayesinde robot köpek yürüyebilmekte ve yön değiştirebilmektedir. Sistem; ultrasonik sensörlerle engel algılama, DHT11 ile çevresel sıcaklık-nem takibi, LCD ekran ile bilgi gösterimi ve DFPlayer Mini ile sesli tepki verme gibi çok sayıda işlevsel özelliği bünyesinde barındırmaktadır. Bluetooth modülü üzerinden kullanıcı komutlarına cevap verebilen bu robot, hem donanım hem de yazılım açısından ileri seviye bir mekatronik uygulamadır.</p>
+</section>
+
+
+<section id="projenin_amaci">
+    <h2>Projenin Amaci</h2>
+    <p>Bu projenin amacı, dört ayaklı bir robot köpek prototipi geliştirerek yürüyüş mekaniği, denge kontrolü, engel algılama ve tepki verme gibi temel robotik işlevlerin uygulanmasını sağlamaktır. Proje kapsamında, Arduino tabanlı gömülü sistemler kullanılarak servo motorlarla hareket kabiliyeti kazandırılmış, sensörler aracılığıyla çevresel veriler toplanmış ve bu verilere göre robotun çeşitli tepkiler vermesi sağlanmıştır. Robot köpek, uzaktan Bluetooth ile kontrol edilebilmekte; engel algıladığında sesli tepki (havlama) verebilmekte ve sıcaklık-nem gibi çevresel bilgileri LCD ekran üzerinde gösterebilmektedir.</p>
+</section>
+
+
+
+
+<section id="ozellikler">
+    <h2>Robot Köpeğin Özellikleri</h2>
+    <ul>
+        <li><strong>Kontrol:</strong> Arduino Mega 2560 mikrodenetleyici ile tüm sistemin kontrol eder ve Komutlara göre yön değiştirme ve yürüme yeteneğini sağlar.</li>
+        <li><strong>Hareket Etmesi:</strong> 12 adet MG996R servo motor sayesinde gerçek köpek hareketlerini taklit eder.</li>
+        <li><strong>Engel Tespiti:</strong> HC-SR04 ultrasonik sensör ile engel algılama yapabilir.</li>
+        <li><strong>Sıcaklık ve Nem Sensörü:</strong> Ortam koşullarını ölçmek için DHT11 entegre edilmiştir.</li>
+        <li><strong>Güç yönetimi:</strong> 7.4V li-ion pil ve XL4016 Dc-Dc step down regülatör sayesinde güç dağıtımı yapmaktadır.</li>
+        <li><strong>Ses Çıkışı:</strong> DFPlayer Mini ve hoparlör yardımıyla sesli tepki verir (örn. havlama sesi).</li>
+        <li><strong>LCD Ekran:</strong> Sıcaklık, nem gibi veriler I2C üzerinden okunabilir.</li>
+        <li><strong>Kablosuz Kontrol:</strong> HC-05 Bluetooth modülü ile uzaktan kontrol yapılabilir.</li>
+    </ul>
+</section>
+
+<section id="ekip">
+    <h2>Projeyi Yapan Kişiler</h2>
+    <ul>
+        <li>Onur Muhammet KOÇ</li>
+        <li>Zeynep Sude EREN</li>
+    </ul>
+</section>
+
+<section id="asamalar">
+    <h2>Montaj Aşamaları</h2>
+
+    <div class="step">
+        <h3>Pembe kaplamalar</h3>
+        <p>Pembe dış kaplamalar</p>
+        <img src="assets/images/pembe_kaplamalar.jpg" alt="diş kaplamalar " />
+    </div>
+
+    <div class="step">
+        <h3>Gri kaplamalar</h3>
+        <p>Gri iç kaplamalar</p>
+        <img src="assets/images/ic_kaplamalar.jpg" alt="iç kaplamalar " />
+    </div>
+
+    <div class="step">
+        <h3>Ayaklar ve Servoların Montaj Aşaması</h3>
+        <p>Her bacak kısmına 1'er adet MG996R servo motor montaj edilecek.</p>
+        <img src="assets/images/ayak_montaj1.jpg" alt="ayak ve servo montaj " />
+    </div>
+
+     <div class="step">
+        <h3>Ayakların Servolarla Birleşmiş Hali</h3>
+        <p>Dikkatli bir şekilde servo motorlar bacak kısmına montaj edildi.</p>
+        <img src="assets/images/ayak_montaj2.jpg" alt="ayak ve servo montajının tamamlanmış hali " />
+    </div>
+    
+       <div class="step">
+        <h3>Ayaklar ve Bacakların Birleşmesi</h3>
+        <p>Ayak kısımlarının dikkatli bir şekilde bacak kısımlarında bulunan çıkıntılara montajlanması.</p>
+        <img src="assets/images/birlesim2.jpg" alt="ayak ve bacakların montajı " />
+    </div>
+
+     <div class="step">
+        <h3>Bacak Kısmına Pempe Kaplamaların Montajı</h3>
+        <p>Bacak kısmında ki yere ilk olarak MG996R servo motorları yerleştirdikten sonra pembe kaplamları bacak kısımına montaj edilir.</p>
+        <img src="assets/images/birlesim3.jpg" alt="bacaklara pembe kaplamaların montajı " />
+    </div>
+
+       <div class="step">
+        <h3>Omuz Kısmı Montajı</h3>
+        <p>Robot köpeğin rahat sağa sola hareket etmesi için MG996R servo motorların mil kısmı omuz parçasının içine gelecek şekilde yerleştirilir.</p>
+        <img src="assets/images/omuz_servo_montaji .jpg" alt="Omuz parçalarına servo montajı" />
+    </div>
+   
+   <div class="step">
+        <h3>Servo Motorların Yerleştirilmesi</h3>
+        <p>Her bacağa 3'er adet MG996R servo motor yerleştirildi. Bu şekilde robotun dört bacağındaki toplam 12 servo motorla hareket sağlanmıştır.</p>
+        <img src="assets/images/bacaklarin_bitmis_hali.jpg" alt="servoların bitmis hali " />
+    </div>
+
+    <div class="step">
+        <h3>Gövde Montajı</h3>
+        <p>Robot köpeğin ana gövde parçaları 3D yazıcı ile üretildikten sonra vidalarla birleştirildi.</p>
+        <img src="assets/images/Govde_2.jpg" alt="Gövde Montajı" />
+    </div>
+
+    <div class="step">
+        <h3>PCA9685 Servo Sürücü Bağlantısı</h3>
+        <p>Tüm servo motorlar PCA9685 modülüne kablo ile bağlandı, güç bağlantıları dikkatlice yapıldı.</p>
+        <img src="assets/images/PCA9685_baglanti.jpg" alt="PCA9685 Bağlantısı" />
+    </div>
+
+    <div class="step">
+        <h3>Arduino Mega Kurulumu</h3>
+        <p>Arduino Mega, gövde üzerindeki uygun boşluğa yerleştirildi.</p>
+        <img src="assets/images/govde_baslangic_1.jpg" alt="Arduino Mega Kurulumu" />
+    </div>
+
+    <div class="step">
+        <h3>HC-SR04 Ultrasonik Sensör Montajı</h3>
+        <p>Ön tarafa HC-SR04 sensörü monte edilerek çevresel engel algılama sağlandı.</p>
+        <img src="assets/images/ultrasonik_sensör_montaj 1.jpg" alt="Ultrasonik Sensör Montajı" />
+    </div>
+
+     <div class="step">
+        <h3>HC-SR04 Ultrasonik Sensör Montajı2</h3>
+        <p>Ön tarafa HC-SR04 sensörü monte edilerek çevresel engel algılama sağlandı.</p>
+        <img src="assets/images/ultrasonik_sensör_montaj .jpg" alt="Ultrasonik Sensör Montajı" />
+    </div>
+
+    <div class="step">
+        <h3>Gövdenin içi</h3>
+        <p>Robot köpeğin gövdesinin içine gerekli sensöler eklendi.</p>
+        <img src="assets/images/gövde içii.jpg" alt="sensör montajı" />
+    </div>
+
+    <div class="step">
+        <h3>LCD Ekran ve buttonun montajı</h3>
+        <p> LCD ekran üst kısma monte edilerek verilerin görüntülenmesi sağlandı, buton da yanına eklendi</p>
+        <img src="assets/images/lcd_ekran_montaj.jpg" alt=" LCD Montajı" />
+    </div>
+
+    <div class="step">
+        <h3>Lcd Ekran ve Button Montajının içi</h3>
+        <img src="assets/images/lcd_ekran_montajinin_ici.jpg" alt="lcd ve button montajı" />
+    </div>
+
+    <div class="step">
+        <h3>Batarya ve Güç Yönetimi</h3>
+        <p>7.4V Li-ion batarya, BMS devresi ve step-down regülatör ile birlikte yerleştirilerek enerji dağıtımı düzenlendi.</p>
+        <img src="assets/images/li_ion_pil_paketi.jpg" alt="Batarya ve Güç Yönetimi" />
+    </div>
+
+    <div class="step">
+        <h3>Montajlı Hali</h3>
+        <p>Montaj tamamlandıktan sonraki ilk hali.</p>
+        <img src="assets/images/Bitmis_hali.jpg" alt="Montajlı hali" />
+    </div>
+</section>
+
+<section id="parcalar">
+    <h2>Kullanılan Parçalar</h2>
+    <ul>
+        <li>Arduino Mega 2560</li>
+        <li>PCA9685 16-Kanal Servo Sürücü Kartı</li>
+        <li>12 adet MG996R Servo Motor</li>
+        <li>HC-SR04 Ultrasonik Mesafe Sensörü</li>
+        <li>4Ohm 3W Hoparlör</li>
+        <li>7.4V LiPo Batarya (2S)</li>
+        <li>DFPlayer Mini MP3 Modülü</li>
+        <li>HC-05 Bluetooth Modülü</li>
+        <li>DHT11 Sıcaklık ve Nem Sensörü</li>
+        <li>I2C 16x2 LCD Ekran</li>
+        <li>XL4016 8A DC/DC Step-Down Regülatör</li>
+        <li>Arduino Mega Shield (custom PCB)</li>
+        <li>2S 2A Type-C Şarj Modülü</li>
+        <li>2S 20A Batarya Yönetim Sistemi (BMS)</li>
+        <li>Robotik Ayaklar (3D Baskı parçalar)</li>
+    </ul>
+    <h3>Kullanılan Bileşenler ve Görevleri</h3>
+    <table border="1">
+        <tr><th>Bileşen</th><th>Görevi</th></tr>
+        <tr><td>Arduino Mega</td><td>Tüm sistemi kontrol eder</td></tr>
+        <tr><td>PCA9685 Servo Sürücü</td><td>12 adet servo motoru kontrol eder</td></tr>
+        <tr><td>MG996R Servo</td><td>Bacak hareketlerini sağlar</td></tr>
+        <tr><td>HC-SR04 Ultrasonik Sensör</td><td>Engel tespiti yapar</td></tr>
+        <tr><td>DFPlayer Mini</td><td>Ses çıkışı sağlar (havlama sesi)</td></tr>
+        <tr><td>16x2 LCD (I2C)</td><td>Sıcaklık ve nem değerlerini gösterir</td></tr>
+        <tr><td>DHT11</td><td>Ortam sıcaklığı ve nem ölçümü yapar</td></tr>
+        <tr><td>HC-05 Bluetooth Modülü</td><td>Uzaktan kontrol için bağlantı sağlar</td></tr>
+        <tr><td>Li-ion 7.4V Pil Paketi</td><td>Sisteme enerji sağlar</td></tr>
+        <tr><td>XL4016 DC/DC Regülatör</td><td>Güç voltajını servo motorlar için düzenler</td></tr>
+        <tr><td>2S BMS</td><td>Lityum pilleri korur</td></tr>
+        <tr><td>2S 2A Type-C Şarj Modülü</td><td>Pilin şarj edilmesini sağlar</td></tr>
+    </table>
+</section>
+
+<section id="3dprint">
+    <h2>3D Baskı Parçaları Linki</h2>
+    <p>Robotik ayaklar ve diğer mekanik parçalar için 3D baskı dosyalarını aşağıdaki bağlantıdan indirebilirsiniz:</p>
+    <p><a href="https://www.thingiverse.com/thing:3445283" target="_blank" rel="noopener noreferrer">Thingiverse - Robot Köpek Parçaları</a></p>
+</section>
+
+<footer>
+    <p>&copy; 2025 Robot Köpek Projesi</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toggleButton = document.getElementById("toggle-theme");
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        toggleButton.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            if(body.classList.contains("dark-mode")) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
